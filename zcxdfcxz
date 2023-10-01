@@ -140,59 +140,7 @@ for i,v in pairs(game.Players.LocalPlayer.PlayerGui:GetDescendants()) do
     end
 end
 
--- HITMARKERS
-local notifications = {}
-local center = workspace.CurrentCamera.ViewportSize / 2
 
--- Condition to check
-local hitmarkers = false
-
-  function hitmarker_update()
-    for i = 1, #notifications do
-      notifications[i].Position = Vector2.new(center.X, center.Y + 150 + i * 18)
-    end
-  end
-
-  function hitmarker(hitpart, duration)
-    task.spawn(function()
-      local hitlog = Drawing.new("Text")
-      hitlog.Size = 15
-      hitlog.Font = 2
-      hitlog.Text = "Manipulated Bullet To "..hitpart..""
-      hitlog.Visible = hitmarkers
-      hitlog.ZIndex = 3
-      hitlog.Center = true
-      hitlog.Color = Color3.fromRGB(142, 255, 0)
-      hitlog.Outline = true
-      table.insert(notifications, hitlog)
-      hitmarker_update()
-      local fadeTime = 0.5
-      local transparencyStep = 1 / (fadeTime * 60)
-      local currentTransparency = 0
-      wait(duration)
-      for _ = 1, fadeTime * 60 do
-        currentTransparency = currentTransparency + transparencyStep
-        hitlog.Transparency = currentTransparency
-        task.wait()
-      end
-      table.remove(notifications, table.find(notifications, hitlog))
-      hitmarker_update()
-      hitlog:Remove()
-    end)
-  end
-local event = game.Players.LocalPlayer:FindFirstChild("RemoteEvent").FireServer
-local Bypass
-Bypass = hookfunction(event,function(self, ...)
-local args = {...}
-if args[1] == 10 and args[2] == "Hit" and args[5] then
-    if args[5] == "Head" or args[5] == "Torso" or args[5] == "HumanoidRootPart" or args[5] == "RightUpperArm" or args[5] == "RightLowerArm" or args[5] == "LeftUpperArm" or args[5] == "LeftLowerArm" or args[5] == "RightUpperLeg" or args[5] == "RightLowerLeg" or args[5] == "LeftUpperLeg" or args[5] == "LeftLowerLeg" or args[5] == "LeftFoot" or args[5] == "RightFoot" then
-    hitmarker(tostring(args[5]), 1.5)
-  elseif args[6] == "Head" or args[6] == "Torso" or args[6] == "HumanoidRootPart" or args[6] == "RightUpperArm" or args[6] == "RightLowerArm" or args[6] == "LeftUpperArm" or args[6] == "LeftLowerArm" or args[6] == "RightUpperLeg" or args[6] == "RightLowerLeg" or args[6] == "LeftUpperLeg" or args[6] == "LeftLowerLeg" or args[6] == "LeftFoot" or args[6] == "RightFoot" then
-    hitmarker(tostring(args[6]), 1.5)
-  end
-end
-   return Bypass(self, unpack(args))
-end)
 
 --* Snapline and FOV Variables **--
 local FovSnapline = vital:Draw("Line",{Transparency=1,Thickness=1,Visible=false,Color=Color3.fromRGB(142, 255, 0)})
