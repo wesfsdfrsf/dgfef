@@ -142,11 +142,6 @@ end
 
 
 
---* Snapline and FOV Variables **--
-local FovSnapline = vital:Draw("Line",{Transparency=1,Thickness=1,Visible=false,Color=Color3.fromRGB(142, 255, 0)})
-FovSnapline.From = Vector2.new(Camera.ViewportSize.X/2,Camera.ViewportSize.Y/2)
-local FovTargetCircle = vital:Draw("Circle",{Filled=false,Color=Color3.fromRGB(142, 255, 0),Radius=3,NumSides=90,Thickness=1,Transparency=1,ZIndex=3,Visible=false})
-
 
 --** Silent Variables **--
 local VitalSilent = false
